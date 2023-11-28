@@ -89,10 +89,27 @@
         }
     }
 
+    function goOneDirBackWindows(){
+        if(component_data.working_dir!=""){
+            const reverse_directory = getReverseString(component_data.working_dir);
+            console.log("Reverse Directory = ", reverse_directory);
+            const slash_location = reverse_directory.search("/");
+            let required_directory = component_data.working_dir.substring(0,reverse_directory.length-(slash_location+1))
+            if(required_directory==""){
+                // Root Special Case handled
+                required_directory="/"
+            }
+            sendFileBrowseRequest(required_directory);
+        }
+    }
+
     function goOneDirBack(){
 	if(ostype!="WIN"){
 	    goOneDirBackLinux();
 	}
+        else{
+            goOneDirBackWindows();
+        }
     }
 
     function getFormattedSize(size){
