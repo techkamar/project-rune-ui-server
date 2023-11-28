@@ -7,6 +7,7 @@
     import Loading from '/src/loading.gif';
 
     let mac_address = '';
+    let ostype = '';
     let win_width = null;
     let win_height = null;
     let top_pos = null;
@@ -18,6 +19,7 @@
     onMount(() => {
         console.log(window.innerWidth);
         mac_address=retrieveGetParamsFromUrl(window.location.search).mac;
+        ostype=retrieveGetParamsFromUrl(window.location.search).ostype;
 
         win_width = window.innerWidth;
         win_height = window.innerHeight;
