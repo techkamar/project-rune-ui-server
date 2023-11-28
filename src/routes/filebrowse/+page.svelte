@@ -7,6 +7,7 @@
     import Loading from '/src/loading.gif';
 
     let mac_address = '';
+    let ostype = '';
     let win_width = null;
     let win_height = null;
     let top_pos = null;
@@ -18,6 +19,7 @@
     onMount(() => {
         console.log(window.innerWidth);
         mac_address=retrieveGetParamsFromUrl(window.location.search).mac;
+        ostype=retrieveGetParamsFromUrl(window.location.search).ostype;
 
         win_width = window.innerWidth;
         win_height = window.innerHeight;
@@ -59,8 +61,7 @@
     function getReverseString(mystring){
         return [...mystring].reverse().join("");
     }
-
-    function goOneDirBack(){
+    function goOneDirBackLinux(){
         if(component_data.working_dir!="/"){
             const reverse_directory = getReverseString(component_data.working_dir);
             console.log("Reverse Directory = ", reverse_directory);
@@ -72,6 +73,12 @@
             }
             sendFileBrowseRequest(required_directory);
         }
+    }
+
+    function goOneDirBack(){
+	if(ostype!="WIN"){
+	    goOneDirBackLinux();
+	}
     }
 
     function getFormattedSize(size){
@@ -115,6 +122,15 @@
         });
     }
 
+    function setComponentData(data){
+	if(ostype=="WIN"){
+	   if(data.working_dir == "ROOT"){
+	      data.working_dir = "";
+	   }  
+	}
+	component_data = data;
+    }
+
     function pollForFileBrowseReplyFromServer(){
         console.log(all_data.selected_mac_address)
         let url = `${BASE_URL}${FETCH_MASTER_SLAVE_RESPONSE}?mac=${mac_address}`;
@@ -124,7 +140,7 @@
             if(data.code==200){
                 contentLoading = false;
                 console.log("Data is ",data)
-                component_data = data;
+                setComponentData(data)
                 
                 clearInterval(myInterval);
                 clearSlaveResponse(mac_address);

