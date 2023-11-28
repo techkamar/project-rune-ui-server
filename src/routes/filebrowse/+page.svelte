@@ -53,7 +53,7 @@
 	if(component_data.working_dir==""){
             sendFileBrowseRequest(dir);
         }else{
-            sendFileBrowseRequest(component_data.working_dir+"\\"+dir);
+            sendFileBrowseRequest(component_data.working_dir+dir);
         }
     }
     function sendCommandOthers(dir){
