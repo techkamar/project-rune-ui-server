@@ -123,9 +123,12 @@
     }
 
     function setComponentData(data){
-	if(ostype!="WIN"){
-	   component_data = data;
+	if(ostype=="WIN"){
+	   if(data.working_dir == "ROOT"){
+	      data.working_dir = "";
+	   }  
 	}
+	component_data = data;
     }
 
     function pollForFileBrowseReplyFromServer(){
