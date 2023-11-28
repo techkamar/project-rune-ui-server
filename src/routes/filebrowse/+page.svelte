@@ -49,12 +49,11 @@
         let url = `${BASE_URL}${CLEAR_SLAVE_RESPONSE}?mac=${mac_address}`;
         fetch(url).then(response=>response.text())
     }
-
     function sendCommandWindows(dir){
 	if(component_data.working_dir==""){
             sendFileBrowseRequest(dir);
         }else{
-            sendFileBrowseRequest(component_data.working_dir+"\\"+dir);
+            sendFileBrowseRequest(component_data.working_dir+dir);
         }
     }
     function sendCommandOthers(dir){
