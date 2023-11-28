@@ -49,13 +49,27 @@
         let url = `${BASE_URL}${CLEAR_SLAVE_RESPONSE}?mac=${mac_address}`;
         fetch(url).then(response=>response.text())
     }
-
-    function sendCommand(dir){
-        if(component_data.working_dir=="/"){
+    function sendCommandWindows(dir){
+	if(component_data.working_dir==""){
+            sendFileBrowseRequest(dir);
+        }else{
+            sendFileBrowseRequest(component_data.working_dir+"\"+dir);
+        }
+    }
+    function sendCommandOthers(dir){
+	if(component_data.working_dir=="/"){
             sendFileBrowseRequest(component_data.working_dir+dir);
         }else{
             sendFileBrowseRequest(component_data.working_dir+"/"+dir);
         }
+    }
+    function sendCommand(dir){
+        if(ostype=="WIN"){
+	    sendCommandWindows(dir)
+	}
+	else{
+	    sendCommandOthers(dir)
+	}
     }
 
     function getReverseString(mystring){
