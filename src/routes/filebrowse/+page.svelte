@@ -95,9 +95,9 @@
             console.log("Reverse Directory = ", reverse_directory);
             const slash_location = reverse_directory.search("/");
             let required_directory = component_data.working_dir.substring(0,reverse_directory.length-(slash_location+1))
-            if(required_directory==""){
+            if(required_directory.length==2 && required_directory.substring(1)==":"){
                 // Root Special Case handled
-                required_directory="/"
+                required_directory="ROOT"
             }
             sendFileBrowseRequest(required_directory);
         }
