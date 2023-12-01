@@ -8,5 +8,6 @@ export const SEND_COMMAND_TO_SLAVE = "/api/master/slave/command";
 export const GET_SCREENSHOT_FROM_SLAVE = "/api/master/slave/response/screenshot";
 export const SLAVE_SCREENSHOT_EXISTS = "/api/master/slave/response/screenshot/exists";
 export const SLAVE_SCREENSHOT_DELETE = "/api/master/slave/response/screenshot/delete";
+export const FILE_DOWNLOAD_SPLIT_DELIMETER = ":+:+:+:";
 
 export const ONLINE_SECONDS_THRESHOLD = 5;
