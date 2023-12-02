@@ -1,3 +1,4 @@
+import { BASE_URL, FETCH_MASTER_SLAVE_RESPONSE, SEND_COMMAND_TO_SLAVE, CLEAR_SLAVE_RESPONSE, SLAVE_FILE_DOWNLOAD_URL } from '../config';
 export function secondsToHms(d) {
     d = Number(d);
     var h = Math.floor(d / 3600);
@@ -8,4 +9,9 @@ export function secondsToHms(d) {
     var mDisplay = m > 0 ? m + (m == 1 ? " minute " : " minutes ") : "";
     var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
     return hDisplay + mDisplay + sDisplay+" ago"; 
+}
+
+export function clearSlaveResponse(mac_address){
+    let url = `${BASE_URL}${CLEAR_SLAVE_RESPONSE}?mac=${mac_address}`;
+    fetch(url).then(response=>response.text())
 }

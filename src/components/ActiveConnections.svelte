@@ -1,10 +1,11 @@
 <script>
     export let slaves;
 	let mac = '';
-	import {all_data} from './mystore.js';
+	let selectedAction = 'Choose Action';
+
 	import {secondsToHms} from '../components/util.js';
 	import {ONLINE_SECONDS_THRESHOLD} from '../config.js';
-	import { BASE_URL, GET_SCREENSHOT_FROM_SLAVE } from '../config.js'
+	import { ACTION_TYPE_SHELL, ACTION_TYPE_FILEBROWSE, ACTION_TYPE_SCREENSHOT, ACTION_TYPE_GETFILEURL } from '../config.js'
 
     function getLastSeenInSeconds(timestamp){
 		let seconds = (new Date().getTime()/1000)-timestamp;
@@ -12,6 +13,22 @@
 		return secondsToHms(seconds);
 	}
 
+	function showSelectedAction(info){
+		switch(selectedAction) {
+  			case ACTION_TYPE_SHELL:
+			  runShellCommand(info.mac);
+			break;
+			case ACTION_TYPE_FILEBROWSE:
+				runFileBrowseCommand(info.mac,info.ostype)
+			break;
+			case ACTION_TYPE_SCREENSHOT:
+				getScreenShot(info.mac);
+			break;
+			case ACTION_TYPE_GETFILEURL:
+				getFileUrl(info.mac);
+			break;
+		}
+	}
 	function getOnlineStatus(timestamp){
 		let seconds = (new Date().getTime()/1000)-timestamp;
 		seconds = seconds.toFixed(2);
@@ -26,6 +43,10 @@
 
 	function getScreenShot(mac){
 		window.location.href="/screenshot?mac="+mac;
+	}
+
+	function getFileUrl(mac){
+		window.location.href="/getfileurl?mac="+mac;
 	}
 
 	async function runShellCommand(mac){
@@ -46,10 +67,8 @@
 		  <th>Hostname</th>
 		  <th>OS</th>
 		  <th>Last Seen </th>
-		  <th>Status </th>
-		  <th>Shell </th>
-		  <th>File Browser </th>
-		  <th>Screenshot </th>
+		  <th>Status</th>
+		  <th>Action </th>
 		</tr>
 		{#each slaves as { ip, username, mac, hostname, os, ostype, timestamp }, i}
 		<tr>
@@ -63,13 +82,17 @@
 				{@html getOnlineStatus(timestamp)}
 			</td>
 			<td>
-				<button  class="redbtn"   on:click={()=>{runShellCommand(mac)}}>Run Shell</button>
-			</td>
-			<td>
-				<button class="redbtn" on:click={()=>{runFileBrowseCommand(mac,ostype)}}>Browse File </button>
-			</td>
-			<td>
-				<button  class="redbtn"   on:click={()=>{getScreenShot(mac)}}>Screenshot</button>
+				<select name="action" class="dropdown" bind:value={selectedAction} on:change={()=>{showSelectedAction(
+					{
+						mac: mac,
+						ostype: ostype
+					}
+				)}}>
+					<option value="SHELL">Run Shell</option>
+					<option value="FILEBROWSE">File Browser</option>
+					<option value="SCREENSHOT">Take Screenshot</option>
+					<option value="GETFILEURL">Download File to Slave</option>
+				  </select>
 			</td>
 		  </tr>
 		{/each}
@@ -79,6 +102,9 @@
 <style>
 	.banner{
 		font-family: 'Open Sans', sans-serif;
+	}
+	.dropdown{
+		height: 40px;
 	}
 	.conn_list{
 		border: 0px;
