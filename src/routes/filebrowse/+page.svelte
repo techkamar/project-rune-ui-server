@@ -5,6 +5,7 @@
     import { BASE_URL, FETCH_MASTER_SLAVE_RESPONSE, SEND_COMMAND_TO_SLAVE, CLEAR_SLAVE_RESPONSE, SLAVE_FILE_DOWNLOAD_URL } from '../../config';
     import Folder from '/src/folder.svg';
     import Loading from '/src/loading.gif';
+    import {clearSlaveResponse} from '../../components/util';
 
     let mac_address = '';
     let ostype = '';
@@ -44,11 +45,7 @@
                 myInterval = setInterval(pollForFileBrowseReplyFromServer, 1000);
         });
     }
-    
-    function clearSlaveResponse(mac_address){
-        let url = `${BASE_URL}${CLEAR_SLAVE_RESPONSE}?mac=${mac_address}`;
-        fetch(url).then(response=>response.text())
-    }
+
     function sendCommandWindows(dir){
 	if(component_data.working_dir==""){
             sendFileBrowseRequest(dir);

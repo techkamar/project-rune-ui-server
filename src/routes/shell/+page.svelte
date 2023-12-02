@@ -69,10 +69,7 @@
         <div class="output">
             {@html command_response}
         </div>
-        <input type="text" class="command_box" bind:value={command} on:keydown={(event)=>{submitCommand(event)}} />
-    </div>
-    <div>
-        My MAC is {mac_address}
+        <input type="text" class="command_box"  placeholder="Enter Shell Command Here..."  bind:value={command} on:keydown={(event)=>{submitCommand(event)}} />
     </div>
 </section>
 
@@ -80,7 +77,7 @@
     .container{
         width:800px;
         margin: 0px auto;
-        background-color: aqua;
+        background-color: #36454F;
         border: 0px;
         padding:10px;
     }
@@ -92,7 +89,7 @@
     }
     .command_box{
         height:100px;
-        width: 98%;
+        width: 99%;
         background-color: black;
         color:white;
     }
