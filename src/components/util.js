@@ -1,4 +1,4 @@
-import { BASE_URL, FETCH_MASTER_SLAVE_RESPONSE, SEND_COMMAND_TO_SLAVE, CLEAR_SLAVE_RESPONSE, SLAVE_FILE_DOWNLOAD_URL } from '../config';
+import { BASE_URL, MASTER_PASSWORD_VALIDATE, CLEAR_SLAVE_RESPONSE } from '../config';
 export function secondsToHms(d) {
     d = Number(d);
     var h = Math.floor(d / 3600);
@@ -12,6 +12,28 @@ export function secondsToHms(d) {
 }
 
 export function clearSlaveResponse(mac_address){
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'auth_token': localStorage.getItem("password") },
+    };
+
     let url = `${BASE_URL}${CLEAR_SLAVE_RESPONSE}?mac=${mac_address}`;
-    fetch(url).then(response=>response.text())
+    fetch(url,requestOptions).then(response=>response.text())
+}
+
+export async function validateSecretKey(password){
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: password})
+    };
+
+    const result =  await fetch(`${BASE_URL}${MASTER_PASSWORD_VALIDATE}`, requestOptions)
+    const res_json = await result.json();
+    if(res_json.success){
+        return true;
+    }
+    else{
+        return false;
+    }
 }

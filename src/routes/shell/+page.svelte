@@ -1,14 +1,17 @@
 <script>
-    import {all_data} from '../../components/mystore';
+    
     import {retrieveGetParamsFromUrl} from '../../components/httputil';
     import { onMount } from 'svelte';
     import { BASE_URL, FETCH_MASTER_SLAVE_RESPONSE, SEND_COMMAND_TO_SLAVE, CLEAR_SLAVE_RESPONSE } from '../../config'
 
-    let mac_address = '';
 
+    let mac_address = '';
+    let secret_key = "";
+    
     onMount(() => {
         console.log(window.innerWidth);
         mac_address=retrieveGetParamsFromUrl(window.location.search).mac;
+        secret_key = localStorage.getItem("password");
 
     });
 
@@ -21,12 +24,22 @@
     
     function clearSlaveResponse(mac_address){
         let url = `${BASE_URL}${CLEAR_SLAVE_RESPONSE}?mac=${mac_address}`;
-        fetch(url).then(response=>response.text())
+        const requestOptions = {
+                method: 'GET',
+                headers: { 'auth_token': secret_key },
+        };
+        
+        fetch(url, requestOptions).then(response=>response.text());
     }
     function pollForAnswer(){
-        console.log(all_data.selected_mac_address)
         let url = `${BASE_URL}${FETCH_MASTER_SLAVE_RESPONSE}?mac=${mac_address}`;
-        fetch(url)
+
+        const requestOptions = {
+                method: 'GET',
+                headers: { 'auth_token': secret_key },
+        };
+
+        fetch(url, requestOptions)
         .then(response => response.json())
         .then(data=>{
             if(data.code==200){
@@ -51,7 +64,7 @@
         if(event.key === 'Enter') {
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'auth_token': secret_key },
                 body: JSON.stringify({ mac: mac_address, type: 'SHELL', command: command })
             };
             fetch(`${BASE_URL}${SEND_COMMAND_TO_SLAVE}`, requestOptions)

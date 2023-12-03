@@ -1,13 +1,28 @@
 <script>
-	import { onMount } from 'svelte';
 	import {BASE_URL, FETCH_SLAVES_URI} from '../config';
 	import ActiveConnections from '../components/ActiveConnections.svelte';
+	import PasswordForm from '../components/PasswordForm.svelte';
+	import SecretKey from '../components/mystore';
+	import {validateSecretKey} from '../components/util';
+	
+	let secretKeyVal = "";
 	let slaves = [];
 
-	onMount(async () => {
-		const res = await fetch(`${BASE_URL}${FETCH_SLAVES_URI}`);
+	$: secretKeyVal && loadData();// If secretKey val changes then trigger load data. Poor ReactJS can't do these :P
+	
+
+	SecretKey.subscribe((data) => {
+		secretKeyVal = data
+    })
+
+	async function loadData() {
+		const requestOptions = {
+                method: 'GET',
+                headers: { 'auth_token': secretKeyVal },
+        };
+		const res = await fetch(`${BASE_URL}${FETCH_SLAVES_URI}`, requestOptions);
 		slaves = await res.json();
-	});
+	}
 </script>
 
 <svelte:head>
@@ -16,9 +31,10 @@
 </svelte:head>
 
 <section>
-	{#if slaves.length> 0}
+	{#if secretKeyVal==""}
+		<PasswordForm/>
+	{:else if slaves.length> 0}
 		<ActiveConnections {slaves}/>
-		<!-- <div>Port is {port}</div> -->
 	{:else}
 		<h1> No Connections Yet :| </h1>
 	{/if}

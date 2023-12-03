@@ -30,8 +30,12 @@
     }
 
     function pollForFileBrowseReplyFromServer(){
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'auth_token': localStorage.getItem("password") },
+        };
         let url = `${BASE_URL}${FETCH_MASTER_SLAVE_RESPONSE}?mac=${mac_address}`;
-        fetch(url)
+        fetch(url, requestOptions)
         .then(response => response.json())
         .then(data=>{
             if(data.code==200){
@@ -52,7 +56,7 @@
     function sendRequest(payloadCommand){
         const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'auth_token': localStorage.getItem("password") },
                 body: JSON.stringify({ mac: mac_address, type: ACTION_TYPE_GETFILEURL, command: payloadCommand})
             };
         contentLoading = true;
