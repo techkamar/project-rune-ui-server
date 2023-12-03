@@ -34,7 +34,7 @@
     function sendFileBrowseRequest(directory){
         const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json' , 'auth_token': localStorage.getItem("password")},
                 body: JSON.stringify({ mac: mac_address, type: 'FILEBROWSE', command: directory})
             };
         contentLoading = true;
@@ -138,7 +138,7 @@
         const downloadFileName = component_data.working_dir=="/"?component_data.working_dir+dir:component_data.working_dir+"/"+name;
         const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'auth_token': localStorage.getItem("password") },
                 body: JSON.stringify({ mac: mac_address, type: 'FILEDOWNLOAD', command: downloadFileName})
             };
         contentLoading = true;
@@ -159,9 +159,13 @@
     }
 
     function pollForFileBrowseReplyFromServer(){
-        console.log(all_data.selected_mac_address)
         let url = `${BASE_URL}${FETCH_MASTER_SLAVE_RESPONSE}?mac=${mac_address}`;
-        fetch(url)
+
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'auth_token': localStorage.getItem("password") },
+        };
+        fetch(url, requestOptions)
         .then(response => response.json())
         .then(data=>{
             if(data.code==200){
@@ -176,8 +180,12 @@
     }
 
     function performFileDownload(mac_address, filename){
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'auth_token': localStorage.getItem("password") },
+        };
         let url = `${BASE_URL}${SLAVE_FILE_DOWNLOAD_URL}?mac=${mac_address}`;
-        fetch(url)
+        fetch(url, requestOptions)
         .then((result) => {
             console.log("Result is ",result)
             if (!result.ok) {
@@ -207,9 +215,12 @@
     }
 
     function pollForFileDownloadReplyFromServer(){
-        console.log(all_data.selected_mac_address)
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'auth_token': localStorage.getItem("password") },
+        };
         let url = `${BASE_URL}${FETCH_MASTER_SLAVE_RESPONSE}?mac=${mac_address}`;
-        fetch(url)
+        fetch(url, requestOptions)
         .then(response => response.json())
         .then(data=>{
             if(data.code==200){

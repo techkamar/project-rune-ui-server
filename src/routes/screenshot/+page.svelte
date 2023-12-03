@@ -9,7 +9,11 @@
     let myInterval = null;
 
     function pollForAnswer(){
-        fetch(`${BASE_URL}${SLAVE_SCREENSHOT_EXISTS}?mac=${mac_address}`)
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'auth_token': localStorage.getItem("password") },
+        };
+        fetch(`${BASE_URL}${SLAVE_SCREENSHOT_EXISTS}?mac=${mac_address}`, requestOptions)
             .then(response => response.json())
             .then(data => {
                 if(data.code == 200){
@@ -20,7 +24,11 @@
     }
 
     function deleteScreenshot(){
-        fetch(`${BASE_URL}${SLAVE_SCREENSHOT_DELETE}?mac=${mac_address}`)
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'auth_token': localStorage.getItem("password") },
+        };
+        fetch(`${BASE_URL}${SLAVE_SCREENSHOT_DELETE}?mac=${mac_address}`, requestOptions)
             .then(response => response)
             .then(data => {
                 alert("Screenshot Deleted");
@@ -35,7 +43,7 @@
         //Trigger Screenshot command for user
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'auth_token': localStorage.getItem("password") },
             body: JSON.stringify({ mac: mac_address, type: 'SCREENSHOT', command: "SCREENSHOT" })
         };
         fetch(`${BASE_URL}${SEND_COMMAND_TO_SLAVE}`, requestOptions)

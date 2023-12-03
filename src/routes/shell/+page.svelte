@@ -12,7 +12,6 @@
         console.log(window.innerWidth);
         mac_address=retrieveGetParamsFromUrl(window.location.search).mac;
         secret_key = localStorage.getItem("password");
-        console.log(secret_key);
 
     });
 
@@ -25,11 +24,22 @@
     
     function clearSlaveResponse(mac_address){
         let url = `${BASE_URL}${CLEAR_SLAVE_RESPONSE}?mac=${mac_address}`;
-        fetch(url).then(response=>response.text())
+        const requestOptions = {
+                method: 'GET',
+                headers: { 'auth_token': secret_key },
+        };
+        
+        fetch(url, requestOptions).then(response=>response.text());
     }
     function pollForAnswer(){
         let url = `${BASE_URL}${FETCH_MASTER_SLAVE_RESPONSE}?mac=${mac_address}`;
-        fetch(url)
+
+        const requestOptions = {
+                method: 'GET',
+                headers: { 'auth_token': secret_key },
+        };
+
+        fetch(url, requestOptions)
         .then(response => response.json())
         .then(data=>{
             if(data.code==200){
@@ -54,7 +64,7 @@
         if(event.key === 'Enter') {
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'auth_token': secret_key },
                 body: JSON.stringify({ mac: mac_address, type: 'SHELL', command: command })
             };
             fetch(`${BASE_URL}${SEND_COMMAND_TO_SLAVE}`, requestOptions)

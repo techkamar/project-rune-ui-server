@@ -12,6 +12,11 @@ export function secondsToHms(d) {
 }
 
 export function clearSlaveResponse(mac_address){
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'auth_token': localStorage.getItem("password") },
+    };
+
     let url = `${BASE_URL}${CLEAR_SLAVE_RESPONSE}?mac=${mac_address}`;
-    fetch(url).then(response=>response.text())
+    fetch(url,requestOptions).then(response=>response.text())
 }

@@ -16,8 +16,11 @@
     })
 
 	async function loadData() {
-		console.log("Secret Val is "+secretKeyVal);
-		const res = await fetch(`${BASE_URL}${FETCH_SLAVES_URI}`);
+		const requestOptions = {
+                method: 'GET',
+                headers: { 'auth_token': secretKeyVal },
+        };
+		const res = await fetch(`${BASE_URL}${FETCH_SLAVES_URI}`, requestOptions);
 		slaves = await res.json();
 	}
 </script>
