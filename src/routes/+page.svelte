@@ -18,7 +18,6 @@
 <section>
 	{#if slaves.length> 0}
 		<ActiveConnections {slaves}/>
-		<!-- <div>Port is {port}</div> -->
 	{:else}
 		<h1> No Connections Yet :| </h1>
 	{/if}
