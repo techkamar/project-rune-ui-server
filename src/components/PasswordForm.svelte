@@ -1,6 +1,7 @@
 <script>
     import SecretKey from '../components/mystore';
 	import { BASE_URL, MASTER_PASSWORD_VALIDATE } from '../config';
+    import {validateSecretKey} from '../components/util';
 
 	let secretKeyVal = "";
 	let password = "";
@@ -10,27 +11,18 @@
 		secretKeyVal = data
     })
 
-    function updatePassword(){
-        //Validate whether password is true. If yes set it
-        const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ password: password})
-        };
-        
-        fetch(`${BASE_URL}${MASTER_PASSWORD_VALIDATE}`, requestOptions)
-            .then(response => response.json())
-            .then(resp_data => {
-                if(resp_data.success){
-                    SecretKey.update(data => {
-                        return password;
-                    })
-                    localStorage.setItem("password", password);
-                }
-                else{
-                    error_message = "Error!!! Password is incorrect";
-                }
-        });
+    async function updatePassword(){
+        //Validate whether password is true. If yes set it 
+        let passwordValid = await validateSecretKey(password);
+        if(passwordValid){
+                SecretKey.update(data => {
+                    return password;
+                })
+                localStorage.setItem("password", password);
+        }
+        else{
+            error_message = "Error!!! Password is incorrect";
+        }
     }
 </script>
 <section>
@@ -50,7 +42,7 @@
                 <div></div>
                 <div class="bottom-pane">
                     <div class="err-msg">{error_message}</div>
-                    <button class="blue-btn" on:click={()=>{updatePassword()}}>Set Secret Key</button>
+                    <button class="blue-btn" on:click={async ()=>{updatePassword()}}>Set Secret Key</button>
                 </div>
             </div>
         </div>

@@ -84,7 +84,6 @@
         </div>
         <input type="text" class="command_box"  placeholder="Enter Shell Command Here..."  bind:value={command} on:keydown={(event)=>{submitCommand(event)}} />
     </div>
-    <div>{secret_key}</div>
 </section>
 
 <style>

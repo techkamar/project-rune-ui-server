@@ -1,9 +1,9 @@
 <script>
-	import { onMount } from 'svelte';
 	import {BASE_URL, FETCH_SLAVES_URI} from '../config';
 	import ActiveConnections from '../components/ActiveConnections.svelte';
 	import PasswordForm from '../components/PasswordForm.svelte';
 	import SecretKey from '../components/mystore';
+	import {validateSecretKey} from '../components/util';
 	
 	let secretKeyVal = "";
 	let slaves = [];
