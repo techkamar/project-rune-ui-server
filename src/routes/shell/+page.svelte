@@ -1,14 +1,18 @@
 <script>
-    import {all_data} from '../../components/mystore';
+    
     import {retrieveGetParamsFromUrl} from '../../components/httputil';
     import { onMount } from 'svelte';
     import { BASE_URL, FETCH_MASTER_SLAVE_RESPONSE, SEND_COMMAND_TO_SLAVE, CLEAR_SLAVE_RESPONSE } from '../../config'
 
-    let mac_address = '';
 
+    let mac_address = '';
+    let secret_key = "";
+    
     onMount(() => {
         console.log(window.innerWidth);
         mac_address=retrieveGetParamsFromUrl(window.location.search).mac;
+        secret_key = localStorage.getItem("password");
+        console.log(secret_key);
 
     });
 
@@ -24,7 +28,6 @@
         fetch(url).then(response=>response.text())
     }
     function pollForAnswer(){
-        console.log(all_data.selected_mac_address)
         let url = `${BASE_URL}${FETCH_MASTER_SLAVE_RESPONSE}?mac=${mac_address}`;
         fetch(url)
         .then(response => response.json())
@@ -71,6 +74,7 @@
         </div>
         <input type="text" class="command_box"  placeholder="Enter Shell Command Here..."  bind:value={command} on:keydown={(event)=>{submitCommand(event)}} />
     </div>
+    <div>{secret_key}</div>
 </section>
 
 <style>
