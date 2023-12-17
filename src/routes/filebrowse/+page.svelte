@@ -249,7 +249,7 @@
                 <div class="directory_main_container">
                     {#each component_data.directories as dir, index}
                         <div class="dir_box">
-                            <div style="float:left"><img src={Folder} width="20px" height="20px"/></div>
+                            <div><img src={Folder} width="20px" height="20px"/></div>
                             <div class="dir_entry"  on:click={()=>{sendCommand(dir)}}>{dir}</div>
                         </div>
 	                {/each}
@@ -304,7 +304,6 @@
     .dir_entry{
         background-color: #2c2c2c;
         color:white;
-        padding-left: 20px;
         border-radius: 2px;
         margin:3px;
     }
@@ -312,7 +311,8 @@
         background-color: #b34cb3;
     }
     .dir_box{
-        padding-left:5px;
+        display: grid;
+        grid-template-columns: 1fr 5fr;
     }
     .dir_box:hover{
         background-color: #b34cb3;
