@@ -1,5 +1,5 @@
-export const BASE_URL="https://rune-master.onrender.com";
-//export const BASE_URL="http://127.0.0.1:8000";
+// export const BASE_URL="https://rune-master.onrender.com";
+export const BASE_URL="http://127.0.0.1:8000";
 export const FETCH_SLAVES_URI = "/api/master/slaves";
 export const FETCH_MASTER_SLAVE_RESPONSE = "/api/master/slave/response";
 export const SLAVE_FILE_DOWNLOAD_URL = "/api/master/slave/response/file/download";

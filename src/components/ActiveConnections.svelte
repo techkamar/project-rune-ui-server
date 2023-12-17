@@ -58,7 +58,7 @@
 	}
 </script>
 <section>
-	<h1 class="banner"> List of connections </h1>
+	<div class="top_banner"><h1 class="banner"> List of connections </h1><a href="/redispanel">REDIS PANEL</a></div>
 	<table class="conn_list">
 		<tr>
 		  <th>IP Address</th>
@@ -102,6 +102,10 @@
 <style>
 	.banner{
 		font-family: 'Open Sans', sans-serif;
+	}
+	.top_banner{
+		display: grid;
+		grid-template-columns: 8fr 1fr;
 	}
 	.dropdown{
 		height: 40px;
