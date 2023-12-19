@@ -1,6 +1,8 @@
 <script>
     export let slaves;
 	let mac = '';
+	import RedisIcon from '/src/redis.png';
+	import UploadIcon from '/src/upload.png';
 	let selectedAction = 'Choose Action';
 
 	import {secondsToHms} from '../components/util.js';
@@ -58,7 +60,13 @@
 	}
 </script>
 <section>
-	<div class="top_banner"><h1 class="banner"> List of connections </h1><a href="/redispanel">REDIS PANEL</a></div>
+	<div class="top_banner">
+		<h1 class="banner"> List of connections </h1>
+		<div>
+			<img src={UploadIcon} width="50" height="50" on:click={()=>{window.location.href="/panel/upload"}} class="img-link"/>
+			<img src={RedisIcon} width="50" height="50" on:click={()=>{window.location.href="/redispanel"}} class="img-link"/>
+		</div>
+	</div>
 	<table class="conn_list">
 		<tr>
 		  <th>IP Address</th>
@@ -100,12 +108,20 @@
 </section>
 
 <style>
+	.img-link{
+		cursor: pointer;
+		border: 2px solid white;
+	}
+	.img-link:hover{
+		border: 2px solid crimson;
+	}
 	.banner{
 		font-family: 'Open Sans', sans-serif;
 	}
 	.top_banner{
 		display: grid;
-		grid-template-columns: 8fr 1fr;
+		grid-template-columns: 8fr 2fr;
+		text-decoration: none;
 	}
 	.dropdown{
 		height: 40px;
