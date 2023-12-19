@@ -3,10 +3,12 @@
     import {retrieveGetParamsFromUrl} from '../../components/httputil';
     import { onMount } from 'svelte';
     import { BASE_URL, FETCH_MASTER_SLAVE_RESPONSE, SEND_COMMAND_TO_SLAVE, CLEAR_SLAVE_RESPONSE } from '../../config'
-
+    import Switch from '../../components/Switch.svelte';
 
     let mac_address = '';
     let secret_key = "";
+    let shellTypeSwitchSelection;
+    $: commandType = shellTypeSwitchSelection == "Command"? "SHELL":"POWERSHELL";
     
     onMount(() => {
         console.log(window.innerWidth);
@@ -65,7 +67,7 @@
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'auth_token': secret_key },
-                body: JSON.stringify({ mac: mac_address, type: 'SHELL', command: command })
+                body: JSON.stringify({ mac: mac_address, type: commandType , command: command })
             };
             fetch(`${BASE_URL}${SEND_COMMAND_TO_SLAVE}`, requestOptions)
                 .then(response => response.json())
@@ -79,6 +81,9 @@
 </script>
 <section>
     <div class="container">
+	<div class="shell_toggle">
+		<Switch bind:value={shellTypeSwitchSelection} label="Choose Type of Shell" design="multi" options={['Command', 'Powershell']} fontSize={21}/>
+	</div>
         <div class="output">
             {@html command_response}
         </div>
