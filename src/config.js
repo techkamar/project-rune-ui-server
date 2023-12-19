@@ -10,6 +10,7 @@ export const SLAVE_SCREENSHOT_EXISTS = "/api/master/slave/response/screenshot/ex
 export const SLAVE_SCREENSHOT_DELETE = "/api/master/slave/response/screenshot/delete";
 export const MASTER_PASSWORD_VALIDATE = "/api/validate/master/password";
 export const REDIS_DATA_URL = "/api/master/redis/data";
+export const ADMIN_FILE_UPLOAD = "/api/master/file/upload"
 export const FILE_DOWNLOAD_SPLIT_DELIMETER = ":+:+:+:";
 
 export const ACTION_TYPE_SHELL = "SHELL";
