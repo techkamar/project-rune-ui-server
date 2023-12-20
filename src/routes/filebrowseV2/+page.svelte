@@ -19,7 +19,25 @@
     let component_data = {directories:[],files:[],working_dir:"ROOT"}
     let myInterval = null;
     let contentLoading=true;
+    let dirSearchValue = "";
+    let fileSearchValue = "";
 
+    function filterDirectory(){
+        component_data.directories = component_data.directories.filter(dir=>{
+            if(dir.toLowerCase().indexOf(dirSearchValue.toLocaleLowerCase()) >= 0){
+                return dir;
+            }
+        })
+    }
+
+    function filterFiles(){
+        component_data.files = component_data.files.filter(fileEntry=>{
+            if(fileEntry.name.toLowerCase().indexOf(fileSearchValue.toLocaleLowerCase()) >= 0){
+                return fileEntry;
+            }
+        })
+    }
+    
     onMount(() => {
         console.log(window.innerWidth);
         mac_address=retrieveGetParamsFromUrl(window.location.search).mac;
@@ -263,7 +281,7 @@
         <div class="top-container">
             <div class="top-left-container">
                 <img title="Go back one folder" on:click={()=>goOneDirBack()} src={GoBackIcon} class="navigation-btn"/>
-                <img title="Go Home" on:click={()=>goOneDirBack()} src={HomeIcon} class="navigation-btn"/>
+                <img title="Go Home" on:click={()=>sendFileBrowseRequest("ROOT")} src={HomeIcon} class="navigation-btn"/>
             </div>
             <div class="top-right-container">
                 <div>Present Working Directory : {component_data.working_dir}</div>
@@ -274,6 +292,10 @@
             <div class="bottom-left-container" style="border:1px solid black">
                 <div class="directory_container">
                     <div class="directory_header_container" style="border-bottom:1px solid black">Directories</div>
+                    <div>
+                        <input type="text" placeholder="Search folders.." bind:value={dirSearchValue}/>
+                        <button on:click={()=>{filterDirectory()}}> Go </button>
+                    </div>
                     <div class="directory_main_container">
                         {#each component_data.directories as dir, index}
                             <div class="dir_box" on:click={()=>{sendCommand(dir)}}>
@@ -290,7 +312,10 @@
                             <div>Size</div>
                             <div>Action</div>
                         </div>
-                        
+                        <div>
+                            <input type="text" placeholder="Search files.." bind:value={fileSearchValue}/>
+                            <button on:click={()=>{filterFiles()}}> Go </button>
+                        </div>
                         {#each component_data.files as {name,size}, index}
                             <div class="file_entry_container">
                                 <div style="overflow-wrap: break-word;">{name}</div>
