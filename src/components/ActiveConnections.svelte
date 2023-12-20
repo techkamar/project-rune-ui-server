@@ -56,7 +56,7 @@
 	}
 
 	async function runFileBrowseCommand(mac,ostype){
-		window.location.href="/filebrowse?mac="+mac+"&ostype="+ostype;
+		window.location.href="/filebrowseV2?mac="+mac+"&ostype="+ostype;
 	}
 </script>
 <section>
