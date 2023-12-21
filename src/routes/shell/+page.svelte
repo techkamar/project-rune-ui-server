@@ -67,7 +67,7 @@
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'auth_token': secret_key },
-                body: JSON.stringify({ mac: mac_address, type: commandType , command: command })
+                body: JSON.stringify([{ mac: mac_address, type: commandType , command: command }])
             };
             fetch(`${BASE_URL}${SEND_COMMAND_TO_SLAVE}`, requestOptions)
                 .then(response => response.json())
