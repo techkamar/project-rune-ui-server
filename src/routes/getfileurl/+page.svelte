@@ -57,7 +57,7 @@
         const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'auth_token': localStorage.getItem("password") },
-                body: JSON.stringify({ mac: mac_address, type: ACTION_TYPE_GETFILEURL, command: payloadCommand})
+                body: JSON.stringify([{ mac: mac_address, type: ACTION_TYPE_GETFILEURL, command: payloadCommand}])
             };
         contentLoading = true;
         fetch(`${BASE_URL}${SEND_COMMAND_TO_SLAVE}`, requestOptions)

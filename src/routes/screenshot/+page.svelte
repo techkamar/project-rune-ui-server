@@ -44,7 +44,7 @@
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'auth_token': localStorage.getItem("password") },
-            body: JSON.stringify({ mac: mac_address, type: 'SCREENSHOT', command: "SCREENSHOT" })
+            body: JSON.stringify([{ mac: mac_address, type: 'SCREENSHOT', command: "SCREENSHOT" }])
         };
         fetch(`${BASE_URL}${SEND_COMMAND_TO_SLAVE}`, requestOptions)
             .then(response => response.json())

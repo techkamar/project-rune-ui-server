@@ -57,7 +57,7 @@
         const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' , 'auth_token': localStorage.getItem("password")},
-                body: JSON.stringify({ mac: mac_address, type: 'FILEBROWSE', command: directory})
+                body: JSON.stringify([{ mac: mac_address, type: 'FILEBROWSE', command: directory}])
             };
         contentLoading = true;
         fetch(`${BASE_URL}${SEND_COMMAND_TO_SLAVE}`, requestOptions)
@@ -161,7 +161,7 @@
         const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'auth_token': localStorage.getItem("password") },
-                body: JSON.stringify({ mac: mac_address, type: 'FILEDOWNLOAD', command: downloadFileName})
+                body: JSON.stringify([{ mac: mac_address, type: 'FILEDOWNLOAD', command: downloadFileName}])
             };
         contentLoading = true;
         fetch(`${BASE_URL}${SEND_COMMAND_TO_SLAVE}`, requestOptions)
@@ -177,7 +177,7 @@
             const requestOptions = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'auth_token': localStorage.getItem("password") },
-                    body: JSON.stringify({ mac: mac_address, type: 'FILEREMOVE', command: deleteFileName})
+                    body: JSON.stringify([{ mac: mac_address, type: 'FILEREMOVE', command: deleteFileName}])
                 };
             contentLoading = true;
             fetch(`${BASE_URL}${SEND_COMMAND_TO_SLAVE}`, requestOptions)
