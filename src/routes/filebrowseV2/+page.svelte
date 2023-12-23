@@ -9,6 +9,7 @@
     import DownloadButton from '/src/download.png';
     import DeleteButton from '/src/delete.svg';
     import {clearSlaveResponse} from '../../components/util';
+    import LogoutBtn from '../../components/Logout.svelte';
 
     let mac_address = '';
     let ostype = '';
@@ -273,6 +274,7 @@
         })
     }
 </script>
+<LogoutBtn/>
 <section>
     {#if contentLoading}
         <img src={Loading} style="position:fixed; top:{top_pos}px;left:{left_pos}px"/>

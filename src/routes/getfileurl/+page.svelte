@@ -4,6 +4,7 @@
     import { BASE_URL, SEND_COMMAND_TO_SLAVE, ACTION_TYPE_GETFILEURL, FILE_DOWNLOAD_SPLIT_DELIMETER, FETCH_MASTER_SLAVE_RESPONSE } from '../../config';
     import Loading from '/src/loading.gif';
     import {clearSlaveResponse} from '../../components/util';
+    import LogoutBtn from '../../components/Logout.svelte';
 
     let mac_address = '';
     let contentLoading = false;
@@ -68,6 +69,7 @@
         });
     }
 </script>
+<LogoutBtn/>
 <section>
     {#if contentLoading}
         <img src={Loading} style="position:fixed; top:{top_pos}px;left:{left_pos}px"/>

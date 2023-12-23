@@ -4,6 +4,7 @@
 	import RedisIcon from '/src/redis.png';
 	import UploadIcon from '/src/upload.png';
 	let selectedAction = 'Choose Action';
+	import LogoutBtn from './Logout.svelte';
 
 	import {secondsToHms} from '../components/util.js';
 	import {ONLINE_SECONDS_THRESHOLD} from '../config.js';
@@ -60,6 +61,7 @@
 	}
 </script>
 <section>
+	<LogoutBtn/>
 	<div class="top_banner">
 		<h1 class="banner"> List of connections </h1>
 		<div>

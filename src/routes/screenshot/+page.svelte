@@ -1,5 +1,6 @@
 <script>
     import {retrieveGetParamsFromUrl} from '../../components/httputil';
+    import LogoutBtn from '../../components/Logout.svelte';
     import { onMount } from 'svelte';
     import { BASE_URL, GET_SCREENSHOT_FROM_SLAVE, SLAVE_SCREENSHOT_EXISTS, SEND_COMMAND_TO_SLAVE, SLAVE_SCREENSHOT_DELETE } from '../../config'
 
@@ -55,7 +56,7 @@
     });
 </script>
 
-
+<LogoutBtn/>
 <section>
     {#if screenshot_recieved}
         <div>

@@ -1,6 +1,7 @@
 <script>
     import {BASE_URL, REDIS_DATA_URL} from '../../config';
     import { onMount } from 'svelte';
+    import LogoutBtn from '../../components/Logout.svelte';
     
     let allData = [];
     function getTableRowDivClass(i){
@@ -47,6 +48,7 @@
         getAllData();
     });
 </script>
+<LogoutBtn/>
 <section>
     <div class="container">
         <div class="header">

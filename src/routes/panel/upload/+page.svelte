@@ -1,4 +1,5 @@
 <script>
+    import LogoutBtn from '../../../components/Logout.svelte';
     import {BASE_URL, ADMIN_FILE_UPLOAD} from '../../../config';
     async function uploadFile(event){
         event.preventDefault();
@@ -21,6 +22,7 @@
         }
     }
 </script>
+<LogoutBtn/>
 <section>
     <div class="container">
         <form id="form">

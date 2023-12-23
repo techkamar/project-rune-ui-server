@@ -1,4 +1,5 @@
 <script>
+    import LogoutBtn from '../../components/Logout.svelte';
     import {retrieveGetParamsFromUrl} from '../../components/httputil';
     import { onMount } from 'svelte';
     import { BASE_URL, FETCH_MASTER_SLAVE_RESPONSE, SEND_COMMAND_TO_SLAVE, CLEAR_SLAVE_RESPONSE, SLAVE_FILE_DOWNLOAD_URL } from '../../config';
