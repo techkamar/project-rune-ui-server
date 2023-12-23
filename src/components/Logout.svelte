@@ -25,10 +25,10 @@
     .btn{
         position: fixed;
         right:0px;
-        margin:1px solid white;
+        border:2px solid white;
         cursor: pointer;
     }
     .btn:hover{
-        margin: 1px solid crimson;
+        border:2px solid crimson;
     }
 </style>

@@ -235,6 +235,7 @@
         })
     }
 </script>
+<LogoutBtn/>
 <section>
     {#if contentLoading}
         <img src={Loading} style="position:fixed; top:{top_pos}px;left:{left_pos}px"/>
